@@ -42,6 +42,10 @@
   overflow-y: scroll;
 }
 
+.overflow-visible {
+  overflow: visible;
+}
+
 .hidden {
   visibility: hidden !important;
 }
