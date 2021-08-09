@@ -46,6 +46,7 @@
     "crypto": "^1.0.1",
     "d3": "^6.7.0",
     "d3-shape": "^2.1.0",
+    "dagre-d3": "^0.6.4",
     "lodash": "^4.17.20",
     "moment-mini-ts": "^2.20.1",
     "ng-openapi-gen": "^0.17.1",
