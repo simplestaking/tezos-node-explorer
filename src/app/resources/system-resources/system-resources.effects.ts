@@ -36,7 +36,7 @@ export class SystemResourcesEffects {
 
       this.resourcesDestroy$ = new Subject<void>();
 
-      return timer(0, 60000)
+      return timer(0, 600000)
         .pipe(
           takeUntil(this.resourcesDestroy$),
           switchMap(() => resourcesData$)

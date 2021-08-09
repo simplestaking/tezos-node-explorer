@@ -102,7 +102,8 @@ export class SystemResourcesService {
       resource.network.receivedPerSec = responseItem.network.receivedBytesPerSec / MB_DIVISOR;
 
       resource.io = {};
-      resource.io.node = resource.io.validators = {};
+      resource.io.node = {};
+      resource.io.validators = {};
       resource.io.node.readPerSec = responseItem.io.node.readBytesPerSec / MB_DIVISOR;
       resource.io.node.writtenPerSec = responseItem.io.node.writtenBytesPerSec / MB_DIVISOR;
       resource.io.validators.readPerSec = responseItem.io.validators.total.readBytesPerSec / MB_DIVISOR;
@@ -133,6 +134,7 @@ export class SystemResourcesService {
 
       return resource;
     });
+
     return this.createChartData(resources, isSmallDevice);
   }
 
