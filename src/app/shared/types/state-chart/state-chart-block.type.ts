@@ -7,5 +7,5 @@ export class StateChartBlock {
   status: string;
   currentState: any;
   blocks: StateChartBlock[];
-  left?: number;
+  labels?: string[];
 }
