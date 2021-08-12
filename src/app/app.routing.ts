@@ -29,7 +29,7 @@ export const AppRouting: Routes = [
   },
   {
     path: 'state',
-    loadChildren: () => import('./state-chart/state-chart.module').then(module => module.StateChartModule)
+    loadChildren: () => import('./state-machine/state-machine.module').then(module => module.StateMachineModule)
   },
   {
     path: 'logs',

@@ -1,6 +1,6 @@
-import {VirtualScrollActivePage} from '../shared/virtual-scroll-active-page.type';
-import {LogsActionFilter} from './logs-action-filter.type';
-import {LogsActionEntity} from './logs-action-entity.type';
+import { VirtualScrollActivePage } from '../shared/virtual-scroll-active-page.type';
+import { LogsActionFilter } from './logs-action-filter.type';
+import { LogsActionEntity } from './logs-action-entity.type';
 
 export class LogsAction {
   ids: number[];

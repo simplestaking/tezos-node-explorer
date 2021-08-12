@@ -7,7 +7,7 @@ import { SystemResourcesActionTypes } from './system-resources.actions';
 import { SystemResourcesService } from './system-resources.service';
 import { SystemResources } from '../../shared/types/resources/system/system-resources.type';
 import { State } from '../../app.reducers';
-import { ErrorActionTypes } from '../../shared/error-popup/error-popup.action';
+import { ErrorActionTypes } from '../../shared/error-popup/error-popup.actions';
 
 @Injectable({ providedIn: 'root' })
 export class SystemResourcesEffects {

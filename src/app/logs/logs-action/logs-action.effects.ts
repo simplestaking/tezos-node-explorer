@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { catchError, map, switchMap, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { forkJoin, ObservedValueOf, of, Subject, timer } from 'rxjs';
 import { State } from '../../app.reducers';
-import { ErrorActionTypes } from '../../shared/error-popup/error-popup.action';
+import { ErrorActionTypes } from '../../shared/error-popup/error-popup.actions';
 
 const logActionDestroy$ = new Subject();
 

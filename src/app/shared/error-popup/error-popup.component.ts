@@ -4,7 +4,7 @@ import { State } from '../../app.reducers';
 import { selectErrors } from './error-popup.reducer';
 import { HttpError } from '../types/shared/error-popup/http-error.type';
 import { NotifierService } from 'angular-notifier';
-import { ErrorActionTypes } from './error-popup.action';
+import { ErrorActionTypes } from './error-popup.actions';
 
 @Component({
   selector: 'app-error-popup',

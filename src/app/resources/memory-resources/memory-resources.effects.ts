@@ -7,7 +7,7 @@ import { State } from '../../app.reducers';
 import { MemoryResourcesActionTypes } from './memory-resources.actions';
 import { MemoryResourcesService } from './memory-resources.service';
 import { MemoryResource } from '../../shared/types/resources/memory/memory-resource.type';
-import { ErrorActionTypes } from '../../shared/error-popup/error-popup.action';
+import { ErrorActionTypes } from '../../shared/error-popup/error-popup.actions';
 
 @Injectable({ providedIn: 'root' })
 export class MemoryResourcesEffects {

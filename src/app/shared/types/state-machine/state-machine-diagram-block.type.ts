@@ -1,11 +1,10 @@
-export class StateChartBlock {
+export interface StateMachineDiagramBlock {
   title: string;
   type: string;
   id: number;
   next: number[];
-  prev: number;
   status: string;
   currentState: any;
-  blocks: StateChartBlock[];
+  blocks: StateMachineDiagramBlock[];
   labels?: string[];
 }

@@ -1,0 +1,74 @@
+<!--<div #viewRef>-->
+<!--  <app-tezedge-diagram class="chart-container"-->
+<!--                       [view]="view"-->
+<!--                       [links]="links"-->
+<!--                       [nodes]="nodes"-->
+<!--                       [clusters]="clusters"-->
+<!--                       [draggingEnabled]="false"-->
+<!--                       [panningEnabled]="false"-->
+<!--                       layout="dagreCluster">-->
+<!--    <ng-template #defsTemplate>-->
+<!--      <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">-->
+<!--        <svg:path d="M0,-5L10,0L0,5" fill="#7f7f82" class="arrow-head"/>-->
+<!--      </svg:marker>-->
+<!--    </ng-template>-->
+
+<!--    <ng-template #clusterTemplate let-cluster>-->
+<!--      <svg:g class="node cluster"-->
+<!--             ngx-tooltip-->
+<!--             [tooltipPlacement]="'top'"-->
+<!--             [tooltipType]="'tooltip'"-->
+<!--             [tooltipTitle]="cluster.label">-->
+<!--        <text class="font-12" y="20" x="10">-->
+<!--          <tspan [attr.fill]="'white'">-->
+<!--            {{ cluster.label }}-->
+<!--          </tspan>-->
+<!--        </text>-->
+<!--        <svg:rect rx="5"-->
+<!--                  ry="5"-->
+<!--                  [attr.width]="cluster.dimension.width"-->
+<!--                  [attr.height]="cluster.data.customHeight"-->
+<!--                  [attr.fill]="'transparent'"-->
+<!--                  style="stroke-width: 1px; stroke-dasharray: 7 10;"-->
+<!--                  [attr.stroke]="cluster.data.color"/>-->
+<!--      </svg:g>-->
+<!--    </ng-template>-->
+
+<!--    <ng-template #nodeTemplate let-node>-->
+<!--      <svg:g class="node"-->
+<!--             ngx-tooltip-->
+<!--             [tooltipPlacement]="'top'"-->
+<!--             [tooltipType]="'tooltip'"-->
+<!--             [tooltipTitle]="node.label">-->
+<!--        <svg:rect [attr.width]="node.dimension.width"-->
+<!--                  [attr.height]="node.dimension.height"-->
+<!--                  [attr.fill]="node.data.customColor"-->
+<!--                  [attr.rx]="5"-->
+<!--                  [attr.ry]="5"/>-->
+<!--        <svg:text alignment-baseline="central"-->
+<!--                  class="font-12"-->
+<!--                  [attr.fill]="'white'"-->
+<!--                  [attr.x]="10"-->
+<!--                  [attr.y]="node.dimension.height / 2">-->
+<!--          {{node.label}}-->
+<!--        </svg:text>-->
+<!--      </svg:g>-->
+<!--    </ng-template>-->
+
+<!--    <ng-template #linkTemplate let-link>-->
+<!--      <svg:g class="edge">-->
+<!--        <svg:path class="line" stroke-width="1.5" fill="#7f7f82" marker-end="url(#arrow)"></svg:path>-->
+<!--        <svg:text class="edge-label" text-anchor="middle">-->
+<!--          <textPath class="text-path"-->
+<!--                    [attr.href]="'#' + link.id"-->
+<!--                    [style.dominant-baseline]="link.dominantBaseline"-->
+<!--                    [style.fill]="'rgba(255,255,255,0.7)'"-->
+<!--                    startOffset="50%">-->
+<!--            {{ link.label }}-->
+<!--          </textPath>-->
+<!--        </svg:text>-->
+<!--      </svg:g>-->
+<!--    </ng-template>-->
+<!--  </app-tezedge-diagram>-->
+
+<!--</div>-->

@@ -72,10 +72,27 @@ g.label-container {
 }
 
 #d3Diagram {
-  .clusters rect {
-    fill: #00ffd0;
-    stroke: #999;
-    stroke-width: 1.5px;
+  .clusters {
+    .cluster {
+      rect {
+        fill: transparent;
+        stroke: $white-7;
+        stroke-width: 1.5px;
+        stroke-dasharray: 7 10;
+        rx: 4px;
+        ry: 4px;
+      }
+
+      &.completed rect {
+        fill: rgba(63, 63, 67, 1);
+        stroke: $white-1;
+        stroke-dasharray: 0;
+      }
+    }
+
+    .cluster .label {
+      transform: translateY(6px);
+    }
   }
 
   text {
@@ -83,13 +100,13 @@ g.label-container {
     font-size: 12px;
   }
 
+  tspan {
+    fill: #fff;
+  }
+
   .node {
     rect {
       stroke-width: 1.5px;
-    }
-
-    tspan {
-      fill: #fff;
     }
 
     &.action rect {

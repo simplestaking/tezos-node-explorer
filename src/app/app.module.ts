@@ -110,6 +110,7 @@ import { ReplaceCharacterPipe } from './shared/pipes/replace-character.pipe';
 import { ErrorPopupEffects } from './shared/error-popup/error-popup.effects';
 import { VarDirective } from './shared/directives/var.directive';
 import { MatNativeDateModule } from '@angular/material/core';
+import { StateMachineEffects } from './state-machine/state-machine/state-machine.effects';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeEnGb, 'en');
@@ -195,6 +196,7 @@ function loadIcons(matIconService: IconRegisterService): Function {
       StorageResourcesEffects,
       MemoryResourcesEffects,
       ErrorPopupEffects,
+      StateMachineEffects,
     ]),
 
     // https://github.com/zalmoxisus/redux-devtools-extension

@@ -1,0 +1,15 @@
+<div class="state-table text-white d-flex flex-between flex-column h-100"
+     *ngIf="stateMachine$ | async as stateMachine">
+  <div>
+    <div class="table-title border-bottom">Proposals</div>
+    <div *ngFor="let proposal of stateMachine.proposals"
+         (click)="selectProposal(proposal)"
+         [class.active]="stateMachine.activeProposal === proposal"
+         class="action">
+      {{ proposal.title }}
+    </div>
+  </div>
+  <div class="payload-view">
+    {{ stateMachine.activeProposal.payload | json }}
+  </div>
+</div>

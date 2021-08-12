@@ -4,7 +4,7 @@ import { skip, switchMap, withLatestFrom } from 'rxjs/operators';
 import { ObservedValueOf, of, timer } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from '../../app.reducers';
-import { ErrorActionTypes } from './error-popup.action';
+import { ErrorActionTypes } from './error-popup.actions';
 
 @Injectable({ providedIn: 'root' })
 export class ErrorPopupEffects {

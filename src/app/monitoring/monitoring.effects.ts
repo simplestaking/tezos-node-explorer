@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { State } from '../app.reducers';
 import { SettingsNodeService } from '../settings/settings-node/settings-node.service';
 import { SettingsNodeEntityHeader } from '../shared/types/settings-node/settings-node-entity-header.type';
-import { ErrorActionTypes } from '../shared/error-popup/error-popup.action';
+import { ErrorActionTypes } from '../shared/error-popup/error-popup.actions';
 import { Router } from '@angular/router';
 import { MonitoringActionTypes } from './monitoring.actions';
 import { AnonymousSubject } from 'rxjs/internal-compatibility';

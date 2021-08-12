@@ -1,5 +1,5 @@
 import { HttpError } from '../types/shared/error-popup/http-error.type';
-import { ErrorActions, ErrorActionTypes } from './error-popup.action';
+import { ErrorActions, ErrorActionTypes } from './error-popup.actions';
 import { State } from '../../app.reducers';
 
 export interface ErrorState {

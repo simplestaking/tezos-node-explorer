@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { State } from '../../app.reducers';
-import { ErrorActionTypes } from '../../shared/error-popup/error-popup.action';
+import { ErrorActionTypes } from '../../shared/error-popup/error-popup.actions';
 import { ObservedValueOf } from 'rxjs';
 
 @Injectable()

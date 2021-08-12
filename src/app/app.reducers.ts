@@ -31,10 +31,11 @@ import * as fromSandbox from './sandbox/sandbox.reducer';
 import * as fromWallets from './wallets/wallets.reducer';
 import * as fromVersion from './monitoring/commit-number/commit-number.reducer';
 import * as fromResource from './resources/resources/resources.reducer';
-import { ResourcesState } from './resources/resources/resources.reducer';
 import * as fromError from './shared/error-popup/error-popup.reducer';
-import { ErrorState } from './shared/error-popup/error-popup.reducer';
+import * as fromStateMachine from './state-machine/state-machine/state-machine.reducer';
 
+import { ResourcesState } from './resources/resources/resources.reducer';
+import { ErrorState } from './shared/error-popup/error-popup.reducer';
 import { SettingsNode } from './shared/types/settings-node/settings-node.type';
 import { NetworkStats } from './shared/types/network/network-stats.type';
 import { NetworkPeers } from './shared/types/network/network-peers.type';
@@ -45,6 +46,7 @@ import { Monitoring } from './shared/types/monitoring/monitoring.type';
 import { LogsAction } from './shared/types/logs/logs-action.type';
 import { StorageBlock } from './shared/types/storage/storage-block/storage-block.type';
 import { CommitNumber } from './shared/types/commit-number/commit-number.type';
+import { StateMachine } from './shared/types/state-machine/state-machine.type';
 
 export interface State {
   app: App;
@@ -69,6 +71,7 @@ export interface State {
   error: ErrorState;
   commitNumber: CommitNumber;
   resources: ResourcesState;
+  stateMachine: StateMachine;
 }
 
 // state
@@ -94,7 +97,8 @@ export const reducers: ActionReducerMap<State> = {
   wallets: fromWallets.reducer,
   commitNumber: fromVersion.reducer,
   resources: fromResource.reducer,
-  error: fromError.reducer
+  error: fromError.reducer,
+  stateMachine: fromStateMachine.reducer,
 };
 
 // // log all actions to console for production

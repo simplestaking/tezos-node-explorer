@@ -6,7 +6,7 @@ import { catchError, map, switchMap, takeUntil, tap, withLatestFrom } from 'rxjs
 import { combineLatest, ObservedValueOf, of, Subject, timer } from 'rxjs';
 import { State } from '../../app.reducers';
 import { StorageBlockService } from './storage-block.service';
-import { ErrorActionTypes } from '../../shared/error-popup/error-popup.action';
+import { ErrorActionTypes } from '../../shared/error-popup/error-popup.actions';
 import { StorageBlockActionTypes } from './storage-block.actions';
 
 
