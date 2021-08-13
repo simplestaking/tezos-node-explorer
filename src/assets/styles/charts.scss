@@ -109,17 +109,17 @@ g.label-container {
       stroke-width: 1.5px;
     }
 
-    &.action rect {
-      rx: 20;
-      ry: 20;
-    }
-
     &.active rect {
       fill: rgba(32, 78, 138, 1);
     }
 
     &.completed rect {
       fill: $white-1;
+    }
+
+    &.error rect {
+      stroke: #b14933;
+      fill: #5f352d;
     }
 
     &.pending {

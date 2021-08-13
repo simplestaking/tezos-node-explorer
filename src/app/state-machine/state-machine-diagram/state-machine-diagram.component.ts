@@ -18,6 +18,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 export class StateMachineDiagramComponent implements OnInit {
 
   @ViewChild('d3Diagram', { static: true }) private d3Diagram: ElementRef<HTMLDivElement>;
+  private allBlocks: StateMachineDiagramBlock[];
 
   constructor(private store: Store<State>) { }
 
@@ -29,6 +30,7 @@ export class StateMachineDiagramComponent implements OnInit {
     this.store.select(selectStateMachineDiagram)
       .pipe(untilDestroyed(this))
       .subscribe((diagram: StateMachineDiagramBlock[]) => {
+        this.allBlocks = diagram.reduce((acc, current) => [...acc, current, ...current.blocks], []);
         this.generateDiagram(diagram);
       });
   }
@@ -40,19 +42,18 @@ export class StateMachineDiagramComponent implements OnInit {
     // g.graph().rankDir = 'LR';
 
     // Create
-    const setBlocks = (blocks: any[]) => blocks.forEach(block => {
-      const cls = block.status + (block.type === 'action' ? ' action' : '');
+    this.allBlocks.forEach(block => {
+      const cls = block.status + (block.type === 'error' ? ' error ' : '');
       g.setNode(block.id, {
         label: block.title,
         class: cls,
         data: block,
-        id: block.id,
+        id: 'g' + block.id,
         clusterLabelPos: block.blocks.length ? 'top' : undefined
       });
     });
 
-    setBlocks(diagram.reduce((acc, current) => [...acc, current, ...current.blocks], []));
-
+    // Set parents
     diagram.forEach(block => block.blocks.forEach(childBlock => {
       g.setParent(childBlock.id, block.id);
     }));
@@ -63,11 +64,12 @@ export class StateMachineDiagramComponent implements OnInit {
       .filter(block => block.next.length)
       .forEach(block => {
         block.next.forEach((next, i) => {
+          const isNextBlockAnError = this.allBlocks.find(b => b.id === next).type === 'error';
           g.setEdge(block.id, next, {
             label: block.labels ? block.labels[i] : '',
             labelStyle: 'fill: rgba(255,255,255,0.7)',
-            arrowheadStyle: 'fill: #7f7f82; stroke: none',
-            style: 'stroke: #7f7f82; fill: none'
+            arrowheadStyle: isNextBlockAnError ? 'display: none' : 'fill: #7f7f82; stroke: none',
+            style: (isNextBlockAnError ? 'stroke: #e05537; stroke-dasharray: 5, 5;' : 'stroke: #7f7f82;') + 'fill: none',
           });
         });
       });
@@ -93,10 +95,25 @@ export class StateMachineDiagramComponent implements OnInit {
     });
     svg.call(zoom);
 
-    const svgClusters = d3.select('#d3Diagram svg').selectAll('g.cluster');
+    const svgClusters = d3.select('#d3Diagram svg g').selectAll('g.cluster');
     svgClusters.attr('class', (id) => {
-      return 'cluster ' + diagram.find(bl => bl.id === Number(id)).status;
+      return 'cluster ' + this.allBlocks.find(bl => bl.id === Number(id)).status;
     });
+
+    const nodesAndClusters = d3.select('#d3Diagram svg g').selectAll('g.node, g.cluster');
+    nodesAndClusters
+      .on('mouseenter', (ev, id) => {
+        const nextBlockIds = this.allBlocks.find(bl => bl.id === Number(id)).next;
+        const nextErrorBlockIds = this.allBlocks.filter(bl => nextBlockIds.includes(bl.id) && bl.type === 'error');
+        nextErrorBlockIds.forEach(bl => {
+          d3.select('#d3Diagram svg g').select(`#g${bl.id}`).property('classList', (id, index, node) => {
+
+          });
+        });
+      })
+      .on('mouseout', (d, dataSet) => {
+
+      });
 
     svg
       // .attr('width', d3.select('#d3Diagram svg g')['_groups'][0][0].getBBox().width)

@@ -25,7 +25,7 @@ const diagramStructure: StateMachineDiagramBlock[] = [
     type: 'info',
     title: 'P2P socket authenticate',
     id: 1,
-    next: [21, 221],
+    next: [21, 221, 90],
     status: 'completed',
     currentState: null,
     labels: ['Initiate', 'Receive connection message'],
@@ -40,10 +40,10 @@ const diagramStructure: StateMachineDiagramBlock[] = [
     currentState: null,
     blocks: [
       {
-        type: 'action',
+        type: 'info',
         title: 'Attempt to write connection message',
         id: 21,
-        next: [22],
+        next: [22, 91],
         status: 'completed',
         currentState: null,
         labels: ['Successful Connection_message.write'],
@@ -53,7 +53,7 @@ const diagramStructure: StateMachineDiagramBlock[] = [
         type: 'info',
         title: 'Waiting for a response connection message',
         id: 22,
-        next: [333],
+        next: [333, 92],
         status: 'completed',
         labels: ['Successful Connection_message.read'],
         currentState: null,
@@ -70,10 +70,10 @@ const diagramStructure: StateMachineDiagramBlock[] = [
     currentState: null,
     blocks: [
       {
-        type: 'action',
+        type: 'info',
         title: 'Connection message received without having sent one attempt to read connection message',
         id: 221,
-        next: [222],
+        next: [222, 93],
         status: 'completed',
         currentState: null,
         labels: ['Successful Connection_message.read'],
@@ -83,7 +83,7 @@ const diagramStructure: StateMachineDiagramBlock[] = [
         type: 'info',
         title: 'Attempt to respond',
         id: 222,
-        next: [333],
+        next: [333, 94],
         status: 'completed',
         labels: ['Successful Connection_message.write'],
         currentState: null,
@@ -95,7 +95,7 @@ const diagramStructure: StateMachineDiagramBlock[] = [
     type: 'info',
     title: 'Connection messages exchanged successfully',
     id: 333,
-    next: [3, 1000],
+    next: [3, 95],
     status: 'completed',
     currentState: null,
     blocks: []
@@ -104,7 +104,7 @@ const diagramStructure: StateMachineDiagramBlock[] = [
     type: 'info',
     title: 'Exchange metadata message',
     id: 3,
-    next: [4, 1000],
+    next: [4, 96],
     status: 'active',
     currentState: null,
     blocks: []
@@ -113,7 +113,7 @@ const diagramStructure: StateMachineDiagramBlock[] = [
     type: 'info',
     title: 'Exchange ack message',
     id: 4,
-    next: [5, 1000],
+    next: [5, 97],
     status: 'pending',
     currentState: null,
     blocks: []
@@ -122,7 +122,7 @@ const diagramStructure: StateMachineDiagramBlock[] = [
     type: 'info',
     title: 'Exchange metadata chunks',
     id: 5,
-    next: [6, 1000],
+    next: [6, 98],
     labels: ['Finish exchanging metadata chunks'],
     status: 'pending',
     currentState: null,
@@ -132,7 +132,7 @@ const diagramStructure: StateMachineDiagramBlock[] = [
     type: 'info',
     title: 'Authenticated connection',
     id: 6,
-    next: [7],
+    next: [7, 99],
     status: 'pending',
     currentState: null,
     blocks: []
@@ -141,7 +141,7 @@ const diagramStructure: StateMachineDiagramBlock[] = [
     type: 'info',
     title: 'Exchanging ack/nack chunks',
     id: 7,
-    next: [8, 1000],
+    next: [8, 100],
     status: 'pending',
     currentState: null,
     labels: ['Finish exchanging ack/nack chunks'],
@@ -158,8 +158,98 @@ const diagramStructure: StateMachineDiagramBlock[] = [
   },
   {
     type: 'error',
-    title: 'Error',
-    id: 1000,
+    title: 'Unknown Error',
+    id: 90,
+    next: [],
+    status: 'completed',
+    currentState: null,
+    blocks: []
+  },
+  {
+    type: 'error',
+    title: 'P2p Error',
+    id: 91,
+    next: [],
+    status: 'completed',
+    currentState: null,
+    blocks: []
+  },
+  {
+    type: 'error',
+    title: 'HTTP Error',
+    id: 92,
+    next: [],
+    status: 'completed',
+    currentState: null,
+    blocks: []
+  },
+  {
+    type: 'error',
+    title: 'Service Failed',
+    id: 93,
+    next: [],
+    status: 'completed',
+    currentState: null,
+    blocks: []
+  },
+  {
+    type: 'error',
+    title: 'WS Error',
+    id: 94,
+    next: [],
+    status: 'completed',
+    currentState: null,
+    blocks: []
+  },
+  {
+    type: 'error',
+    title: 'Connection Error',
+    id: 95,
+    next: [],
+    status: 'completed',
+    currentState: null,
+    blocks: []
+  },
+  {
+    type: 'error',
+    title: 'Thrown Unknown Error',
+    id: 96,
+    next: [],
+    status: 'completed',
+    currentState: null,
+    blocks: []
+  },
+  {
+    type: 'error',
+    title: 'RocksDB Error',
+    id: 97,
+    next: [],
+    status: 'completed',
+    currentState: null,
+    blocks: []
+  },
+  {
+    type: 'error',
+    title: 'Kernel Error',
+    id: 98,
+    next: [],
+    status: 'completed',
+    currentState: null,
+    blocks: []
+  },
+  {
+    type: 'error',
+    title: 'XSS Error',
+    id: 99,
+    next: [],
+    status: 'completed',
+    currentState: null,
+    blocks: []
+  },
+  {
+    type: 'error',
+    title: 'Security compromised - System Failed',
+    id: 100,
     next: [],
     status: 'completed',
     currentState: null,
@@ -226,6 +316,6 @@ const proposals: StateMachineProposal[] = [
   {
     title: 'CONNECTION_ACCEPTED',
     payload: { data: 'I accept the connection. Now the state should look connected.' },
-    stateId: 1000
+    stateId: 98
   },
 ];
