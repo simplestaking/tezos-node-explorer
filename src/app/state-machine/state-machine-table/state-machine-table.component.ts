@@ -25,10 +25,10 @@ export class StateMachineTableComponent implements OnInit {
   private tableContainer: ElementRef<HTMLDivElement>;
 
   @ViewChild('tableContainer') set scrollBottom(content: ElementRef<HTMLDivElement>) {
-    if (content) {
-      this.tableContainer = content;
-      this.tableContainer.nativeElement.scrollTop = this.tableContainer.nativeElement.offsetHeight;
-    }
+    // if (content) {
+    //   this.tableContainer = content;
+    //   this.tableContainer.nativeElement.scrollTop = this.tableContainer.nativeElement.offsetHeight;
+    // }
   }
 
   constructor(private store: Store<State>) { }
@@ -38,7 +38,7 @@ export class StateMachineTableComponent implements OnInit {
   }
 
   selectProposal(proposal: StateMachineProposal): void {
-    this.store.dispatch<StateMachineStopPlaying>({ type: StateMachineActionTypes.STATE_MACHINE_STOP_PLAYING });
+    this.store.dispatch<StateMachineStopPlaying>({ type: StateMachineActionTypes.STATE_MACHINE_PAUSE_PLAYING });
     this.store.dispatch<StateMachineSetActiveProposal>({
       type: StateMachineActionTypes.STATE_MACHINE_SET_ACTIVE_PROPOSAL,
       payload: proposal
@@ -55,7 +55,7 @@ export class StateMachineTableComponent implements OnInit {
 
   togglePlayPause(isPlaying: boolean): void {
     if (isPlaying) {
-      this.store.dispatch<StateMachineStopPlaying>({ type: StateMachineActionTypes.STATE_MACHINE_STOP_PLAYING });
+      this.store.dispatch<StateMachineStopPlaying>({ type: StateMachineActionTypes.STATE_MACHINE_PAUSE_PLAYING });
     } else {
       this.store.dispatch<StateMachineStartPlaying>({ type: StateMachineActionTypes.STATE_MACHINE_START_PLAYING });
     }

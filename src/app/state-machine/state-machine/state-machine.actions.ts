@@ -3,14 +3,26 @@ import { StateMachineDiagramBlock } from '@shared/types/state-machine/state-mach
 import { StateMachineProposal } from '@shared/types/state-machine/state-machine-proposal.type';
 
 export enum StateMachineActionTypes {
+  STATE_MACHINE_STATE_LOAD = 'STATE_MACHINE_STATE_LOAD',
+  STATE_MACHINE_STATE_LOAD_SUCCESS = 'STATE_MACHINE_STATE_LOAD_SUCCESS',
   STATE_MACHINE_DIAGRAM_LOAD = 'STATE_MACHINE_DIAGRAM_LOAD',
   STATE_MACHINE_DIAGRAM_LOAD_SUCCESS = 'STATE_MACHINE_DIAGRAM_LOAD_SUCCESS',
   STATE_MACHINE_PROPOSALS_LOAD = 'STATE_MACHINE_PROPOSALS_LOAD',
   STATE_MACHINE_PROPOSALS_LOAD_SUCCESS = 'STATE_MACHINE_PROPOSALS_LOAD_SUCCESS',
   STATE_MACHINE_SET_ACTIVE_PROPOSAL = 'STATE_MACHINE_SET_ACTIVE_PROPOSAL',
-  STATE_MACHINE_STOP_PLAYING = 'STATE_MACHINE_STOP_PLAYING',
+  STATE_MACHINE_PAUSE_PLAYING = 'STATE_MACHINE_PAUSE_PLAYING',
   STATE_MACHINE_START_PLAYING = 'STATE_MACHINE_START_PLAYING',
   STATE_MACHINE_CLOSE = 'STATE_MACHINE_CLOSE',
+}
+
+export class StateMachineStateLoad implements Action {
+  readonly type = StateMachineActionTypes.STATE_MACHINE_STATE_LOAD;
+}
+
+export class StateMachineStateLoadSuccess implements Action {
+  readonly type = StateMachineActionTypes.STATE_MACHINE_STATE_LOAD_SUCCESS;
+
+  constructor(public payload: any) { }
 }
 
 export class StateMachineDiagramLoad implements Action {
@@ -44,7 +56,7 @@ export class StateMachineSetActiveProposal implements Action {
 }
 
 export class StateMachineStopPlaying implements Action {
-  readonly type = StateMachineActionTypes.STATE_MACHINE_STOP_PLAYING;
+  readonly type = StateMachineActionTypes.STATE_MACHINE_PAUSE_PLAYING;
 }
 
 export class StateMachineStartPlaying implements Action {
@@ -55,7 +67,9 @@ export class StateMachineClose implements Action {
   readonly type = StateMachineActionTypes.STATE_MACHINE_CLOSE;
 }
 
-export type StateMachineActions = StateMachineDiagramLoad
+export type StateMachineActions = StateMachineStateLoad
+  | StateMachineStateLoadSuccess
+  | StateMachineDiagramLoad
   | StateMachineDiagramLoadSuccess
   | StateMachineProposalsLoad
   | StateMachineProposalsLoadSuccess

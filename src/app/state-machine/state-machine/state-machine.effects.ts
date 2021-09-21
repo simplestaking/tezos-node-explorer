@@ -6,14 +6,23 @@ import { StateMachineActionTypes } from './state-machine.actions';
 import { map, switchMap, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { ObservedValueOf, Subject, timer } from 'rxjs';
 import { StateMachineService } from './state-machine.service';
+import { StateMachineProposal } from '@shared/types/state-machine/state-machine-proposal.type';
 
 @Injectable({ providedIn: 'root' })
 export class StateMachineEffects {
 
   private playSubject$ = new Subject<void>();
 
+  stateMachineStateLoad$ = createEffect(() => this.actions$.pipe(
+    ofType(StateMachineActionTypes.STATE_MACHINE_STATE_LOAD),
+    withLatestFrom(this.store, (action: any, state: ObservedValueOf<Store<State>>) => ({ action, state })),
+    switchMap(({ action, state }) =>
+      this.stateMachineService.getStateMachineState()
+    ),
+    map((payload: any) => ({ type: StateMachineActionTypes.STATE_MACHINE_STATE_LOAD_SUCCESS, payload })),
+  ));
 
-  StateMachineDiagramLoad$ = createEffect(() => this.actions$.pipe(
+  stateMachineDiagramLoad$ = createEffect(() => this.actions$.pipe(
     ofType(StateMachineActionTypes.STATE_MACHINE_DIAGRAM_LOAD),
     withLatestFrom(this.store, (action: any, state: ObservedValueOf<Store<State>>) => ({ action, state })),
     switchMap(({ action, state }) => {
@@ -22,18 +31,16 @@ export class StateMachineEffects {
     map((payload) => ({ type: StateMachineActionTypes.STATE_MACHINE_DIAGRAM_LOAD_SUCCESS, payload })),
   ));
 
-
-  StateMachineProposalsLoad$ = createEffect(() => this.actions$.pipe(
+  stateMachineProposalsLoad$ = createEffect(() => this.actions$.pipe(
     ofType(StateMachineActionTypes.STATE_MACHINE_PROPOSALS_LOAD),
     withLatestFrom(this.store, (action: any, state: ObservedValueOf<Store<State>>) => ({ action, state })),
     switchMap(({ action, state }) => {
       return this.stateMachineService.getStateMachineProposals();
     }),
-    map((payload) => ({ type: StateMachineActionTypes.STATE_MACHINE_PROPOSALS_LOAD_SUCCESS, payload })),
+    map((payload: StateMachineProposal[]) => ({ type: StateMachineActionTypes.STATE_MACHINE_PROPOSALS_LOAD_SUCCESS, payload })),
   ));
 
-
-  StateMachinePlay$ = createEffect(() => this.actions$.pipe(
+  stateMachinePlay$ = createEffect(() => this.actions$.pipe(
     ofType(StateMachineActionTypes.STATE_MACHINE_START_PLAYING),
     withLatestFrom(this.store, (action: any, state: ObservedValueOf<Store<State>>) => ({ action, state })),
     switchMap(({ action, state }) => {
@@ -52,19 +59,17 @@ export class StateMachineEffects {
     map(payload => (
       payload
         ? { type: StateMachineActionTypes.STATE_MACHINE_SET_ACTIVE_PROPOSAL, payload }
-        : { type: StateMachineActionTypes.STATE_MACHINE_STOP_PLAYING }
+        : { type: StateMachineActionTypes.STATE_MACHINE_PAUSE_PLAYING }
     )),
   ));
 
-
-  StateMachineStop$ = createEffect(() => this.actions$.pipe(
-    ofType(StateMachineActionTypes.STATE_MACHINE_STOP_PLAYING),
+  stateMachineStop$ = createEffect(() => this.actions$.pipe(
+    ofType(StateMachineActionTypes.STATE_MACHINE_PAUSE_PLAYING),
     withLatestFrom(this.store, (action: any, state: ObservedValueOf<Store<State>>) => ({ action, state })),
     tap(({ action, state }) => this.playSubject$.next(null))
   ), { dispatch: false });
 
-
-  StateMachineClose$ = createEffect(() => this.actions$.pipe(
+  stateMachineClose$ = createEffect(() => this.actions$.pipe(
     ofType(StateMachineActionTypes.STATE_MACHINE_CLOSE),
     withLatestFrom(this.store, (action: any, state: ObservedValueOf<Store<State>>) => ({ action, state })),
     tap(({ action, state }) => {

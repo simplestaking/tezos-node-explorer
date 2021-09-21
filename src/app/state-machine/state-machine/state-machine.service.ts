@@ -17,12 +17,16 @@ export class StateMachineService {
 
   constructor(private http: HttpClient) { }
 
+  getStateMachineState(): Observable<any> {
+    return this.http.get<any>('http://192.168.100.3:18732/state');
+  }
+
   getStateMachineDiagram(): Observable<StateMachineDiagramBlock[]> {
-    return of(this.data).pipe(delay(50));
+    return of(diagramStructure).pipe(delay(50));
   }
 
   getStateMachineProposals(): Observable<StateMachineProposal[]> {
-    return of(proposals);
+    return this.http.get<StateMachineProposal[]>('http://192.168.100.3:18732/actions');
   }
 }
 
@@ -176,128 +180,131 @@ const diagramStructure: StateMachineDiagramBlock[] = [
   },
 ];
 
-const proposals: StateMachineProposal[] = [
-  {
-    title: 'INITIATE_CONNECTION',
-    payload: {
-      data: 'I am a payload',
-      payloadMetadata: { value: '1203912809', hex: 'BLx4CyvBEua81n10n1e0fifhf0' }
-    },
-    stateId: 1,
-    timestamp: 1628841536123,
-  },
-  {
-    title: 'SUCCESSFUL_CONNECTION_MESSAGE_WRITE',
-    payload: {
-      data: 'I am information',
-      info2: 123,
-      info4: { info: { stats: 'Diagram successful' } }
-    },
-    stateId: 21,
-    timestamp: 1628841546132,
-  },
-  {
-    title: 'RECEIVE_CONNECTION_MESSAGE',
-    payload: {
-      data: 'I was measured by the debugger',
-      moreMetadata: { data: { data: { data: 'no info' } } }, time: 'Today'
-    },
-    stateId: 22,
-    timestamp: 1628841556634,
-  },
-  {
-    title: 'SUCCESSFUL_CONNECTION_MESSAGE_READ',
-    payload: { data: 'P2P data' },
-    stateId: 333,
-    timestamp: 1628841576326,
-  },
-  {
-    title: 'SUCCESSFUL_CONNECTION_MESSAGE_READ',
-    payload: { data: 'I am data from Kernel', kernel1: 'protocol1244', kernel2: 'thread 088899' },
-    stateId: 221,
-    timestamp: 1628841566753,
-  },
-  {
-    title: 'SUCCESSFUL_CONNECTION_MESSAGE_READ_THREAD6',
-    payload: { data: 'I am data from Core6', kernel1: '123124', kernel2: 'thread 3515' },
-    stateId: 222,
-    timestamp: 1628841566753,
-  },
-  {
-    title: 'SUCCESSFUL_CONNECTION_MESSAGE_WRITE',
-    payload: { data: 'I will write a connection message' },
-    stateId: 3,
-    timestamp: 1628841586754,
-  },
-  {
-    title: 'TRIGGER_METADATA_EXCHANGING',
-    payload: {
-      data: 'I exchange metadata',
-      data2: {
-        data: { data: { data: 'no data' } }
-      },
-      time: 'Today',
-      event: 'Proposal',
-      id: 91118284,
-      key: 'p2p000c'
-    },
-    stateId: 4,
-    timestamp: 1628841593756,
-  },
-  {
-    title: 'START_EXCHANGING_METADATA_CHUNKS',
-    payload: { data: 'I start now', values: '1 2 3 5 59 17 2' },
-    stateId: 5,
-    timestamp: 1628841613746,
-  },
-  {
-    title: 'FINISH_EXCHANGING_METADATA_CHUNKS',
-    payload: { data: 'I finish now the metadata chunks' },
-    stateId: 6,
-    timestamp: 1628841626756,
-  },
-  {
-    title: 'START_EXCHANGING_ACK_NACK_CHUNKS',
-    payload: { data: { ack: 'ack nack ack nack', nack: 'nack nack' } },
-    stateId: 7,
-    timestamp: 1628841636657,
-  },
-  {
-    title: 'FINISH_EXCHANGING_ACK_NACK_CHUNKS',
-    payload: {
-      data: 'Finish ack nack ack nack',
-      stateThing: { data: 10019 },
-      integration: {
-        timestamp: 1628841654756,
-        stringTime: '10 Dec. 2021'
-      }
-    },
-    stateId: 8,
-    timestamp: 1628841654756,
-  },
-  {
-    title: 'EXIT_SUCCESSFULLY',
-    payload: {
-      data: 'I accept the connection. I exit bye.',
-      metadata: {
-        data2: '...Exited!.',
-        timestamp: 211131313132
-      }
-    },
-    stateId: 97,
-    timestamp: 1628841794244,
-  },
-  {
-    title: 'CONNECTION_ACCEPTED',
-    payload: {
-      data: 'I accept the connection. Now the state should look connected.',
-      metadata: {
-        data2: 'Exit.',
-        stateId: 98,
-        timestamp: 1628841694706
-      }
-    },
-    stateId: 98,
-    timestamp: 1628841694706,
-  },
-];
+// const proposals: StateMachineProposal[] = [
+//   {
+//     title: 'INITIATE_CONNECTION',
+//     id: 1,
+//     content: {
+//       data: 'I am a payload',
+//       payloadMetadata: { value: '1203912809', hex: 'BLx4CyvBEua81n10n1e0fifhf0' }
+//     },
+//   },
+//   {
+//     title: 'SUCCESSFUL_CONNECTION_MESSAGE_WRITE',
+//     id: 2,
+//     payload: {
+//       data: 'I am information',
+//       info2: 123,
+//       info4: { info: { stats: 'Diagram successful' } }
+//     },
+//     stateId: 21,
+//     timestamp: 1628841546132,
+//   },
+//   {
+//     title: 'RECEIVE_CONNECTION_MESSAGE',
+//     id: 3,
+//     payload: {
+//       data: 'I was measured by the debugger',
+//       moreMetadata: { data: { data: { data: 'no info' } } }, time: 'Today'
+//     },
+//     stateId: 22,
+//     timestamp: 1628841556634,
+//   },
+//   {
+//     title: 'SUCCESSFUL_CONNECTION_MESSAGE_READ',
+//     id: 4,
+//     payload: { data: 'P2P data' },
+//     stateId: 333,
+//     timestamp: 1628841576326,
+//   },
+//   {
+//     title: 'SUCCESSFUL_CONNECTION_MESSAGE_READ',
+//     id: 5,
+//     payload: { data: 'I am data from Kernel', kernel1: 'protocol1244', kernel2: 'thread 088899' },
+//     stateId: 221,
+//     timestamp: 1628841566753,
+//   },
+//   {
+//     title: 'SUCCESSFUL_CONNECTION_MESSAGE_READ_THREAD6',
+//     id: 6, payload: { data: 'I am data from Core6', kernel1: '123124', kernel2: 'thread 3515' },
+//     stateId: 222,
+//     timestamp: 1628841566753,
+//   },
+//   {
+//     title: 'SUCCESSFUL_CONNECTION_MESSAGE_WRITE',
+//     id: 7, payload: { data: 'I will write a connection message' },
+//     stateId: 3,
+//     timestamp: 1628841586754,
+//   },
+//   {
+//     title: 'TRIGGER_METADATA_EXCHANGING',
+//     id: 8, payload: {
+//       data: 'I exchange metadata',
+//       data2: {
+//         data: { data: { data: 'no data' } }
+//       },
+//       time: 'Today',
+//       event: 'Proposal',
+//       id: 91118284,
+//       key: 'p2p000c'
+//     },
+//     stateId: 4,
+//     timestamp: 1628841593756,
+//   },
+//   {
+//     title: 'START_EXCHANGING_METADATA_CHUNKS',
+//     id: 9, payload: { data: 'I start now', values: '1 2 3 5 59 17 2' },
+//     stateId: 5,
+//     timestamp: 1628841613746,
+//   },
+//   {
+//     title: 'FINISH_EXCHANGING_METADATA_CHUNKS',
+//     id: 10, payload: { data: 'I finish now the metadata chunks' },
+//     stateId: 6,
+//     timestamp: 1628841626756,
+//   },
+//   {
+//     title: 'START_EXCHANGING_ACK_NACK_CHUNKS',
+//     id: 11, payload: { data: { ack: 'ack nack ack nack', nack: 'nack nack' } },
+//     stateId: 7,
+//     timestamp: 1628841636657,
+//   },
+//   {
+//     title: 'FINISH_EXCHANGING_ACK_NACK_CHUNKS',
+//     id: 12, payload: {
+//       data: 'Finish ack nack ack nack',
+//       stateThing: { data: 10019 },
+//       integration: {
+//         timestamp: 1628841654756,
+//         stringTime: '10 Dec. 2021'
+//       }
+//     },
+//     stateId: 8,
+//     timestamp: 1628841654756,
+//   },
+//   {
+//     title: 'EXIT_SUCCESSFULLY',
+//     id: 13, payload: {
+//       data: 'I accept the connection. I exit bye.',
+//       metadata: {
+//         data2: '...Exited!.',
+//         timestamp: 211131313132
+//       }
+//     },
+//     stateId: 97,
+//     timestamp: 1628841794244,
+//   },
+//   {
+//     title: 'CONNECTION_ACCEPTED',
+//     id: 14, payload: {
+//       data: 'I accept the connection. Now the state should look connected.',
+//       metadata: {
+//         data2: 'Exit.',
+//         stateId: 98,
+//         timestamp: 1628841694706
+//       }
+//     },
+//     stateId: 98,
+//     timestamp: 1628841694706,
+//   }
+// ];

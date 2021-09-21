@@ -24,26 +24,29 @@
                 svgIcon="greater-than"></mat-icon>
     </button>
   </div>
-  <div class="table-wrapper"
-       fxLayout.gt-sm="row"
-       fxLayout.lt-md="column">
-    <div class="font-12"
-         fxFlex.gt-sm="60%"
-         fxFlex.lt-md="60%">
-      <div class="row text-white-7">
-        <span>DATETIME</span>
+  <div class="table-wrapper" fxLayout.gt-sm="row" fxLayout.lt-md="column">
+    <div fxFlex.gt-sm="60%" fxFlex.lt-md="60%">
+      <div class="row text-white-7 font-12">
+        <span>ID</span>
         <span>PROPOSAL</span>
       </div>
-      <div #tableContainer
-           class="state-table overflow-auto">
-        <div *ngFor="let proposal of stateMachine.proposals"
+      <cdk-virtual-scroll-viewport itemSize="32" class="state-table">
+        <div *cdkVirtualFor="let proposal of stateMachine.proposals"
              (click)="selectProposal(proposal)"
              [class.active]="stateMachine.activeProposal === proposal"
              class="action row">
-          <span class="text-white-7">{{ proposal.timestamp | date: 'HH:mm:ss.SSS, dd MMM yy'}}</span>
-          <span class="text-white">{{ proposal.title }}</span>
+          <span class="text-white-7">{{ proposal.id }}</span>
+          <span class="text-white">{{ proposal.type }}</span>
         </div>
-      </div>
+      </cdk-virtual-scroll-viewport>
+<!--      <div #tableContainer-->
+<!--           class="state-table overflow-auto">-->
+<!--        <div *ngFor="let proposal of stateMachine.proposals"-->
+<!--             (click)="selectProposal(proposal)"-->
+<!--             [class.active]="stateMachine.activeProposal === proposal"-->
+<!--             class="action row">-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
     <div fxFlex.gt-sm="40%"
          fxFlex.lt-md="40%"
@@ -60,8 +63,8 @@
             <span class="text-white-4">HANDSHAKING</span>
             <div class="diagram-list margin-top-10 overflow-y-auto overflow-x-hidden">
               <div class="block-step text-white-4 overflow-visible"
-                   [class.error]="block.type === 'error'"
-                   *ngFor="let block of stateMachine.diagramBlocks.slice(0, stateMachine.activeProposalPosition + 1).reverse()">
+                   [class.error]="block.type === 'error' && i === 0"
+                   *ngFor="let block of stateMachine.diagramBlocks.slice(0, stateMachine.activeProposalPosition + 1).reverse(); let i=index">
                 <span class="truncate">{{ block.title }}</span>
               </div>
             </div>
@@ -72,9 +75,9 @@
              fxFlex.lt-md="100%">
           <div class="border w-100 h-100 padding-top-10 padding-left-10 d-flex flex-column">
             <span class="text-white">JSON</span>
-            <div class="overflow-auto">
+            <div class="overflow-auto">[
               <ngx-json-viewer class="margin-top-10 d-block"
-                               [json]="stateMachine.activeProposal?.payload || {}"
+                               [json]="stateMachine.activeProposal?.content || {}"
                                [expanded]="true"></ngx-json-viewer>
             </div>
           </div>

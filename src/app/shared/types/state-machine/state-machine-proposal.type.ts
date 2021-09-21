@@ -1,6 +1,5 @@
 export interface StateMachineProposal {
-  title: string;
-  stateId: number;
-  payload: any;
-  timestamp: number;
+  id: number;
+  type: string;
+  content: any;
 }

@@ -12,8 +12,11 @@
        class="d-flex flex-column overflow-hidden">
     <div fxFlex.gt-sm="calc(100% - 400px)"
          fxFlex.xs="calc(100% - 500px)"
-         class="overflow-hidden padding-10">
-      <app-state-machine-diagram></app-state-machine-diagram>
+         class="overflow-hidden padding-10 d-flex">
+      <div fxFlex="400px" class="text-white overflow-auto border-rad-4">
+        <pre>{{ state | json }}</pre>
+      </div>
+      <app-state-machine-diagram fxFlex="1 1 auto"></app-state-machine-diagram>
     </div>
     <div fxFlex.gt-sm="400px"
          fxFlex.xs="500px">

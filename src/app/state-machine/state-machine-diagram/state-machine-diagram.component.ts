@@ -48,7 +48,7 @@ export class StateMachineDiagramComponent implements AfterViewInit {
         untilDestroyed(this),
         filter(d => !!d.length),
         // TODO: remove this
-        filter(() => !this.isLoaded)
+        // filter(() => !this.isLoaded)
       )
       .subscribe((diagram: StateMachineDiagramBlock[]) => {
         this.diagram = diagram;

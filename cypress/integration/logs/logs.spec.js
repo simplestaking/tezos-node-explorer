@@ -201,4 +201,24 @@ context('LOGS', () => {
     });
   });
 
+  it('[LOGS] should search logs by text', () => {
+    cy.get('.stop-stream').click();
+    cy.wait(1500).then(() => {
+      cy.get('.virtual-scroll-container .virtualScrollRow.used', { timeout: 20000 }).then(() => {
+        const textToSearch = 'timed';
+        cy.get('.search-div input.search-box').type(textToSearch, { force: true });
+        cy.get('.search-div input.search-box').type('{enter}', { force: true });
+        cy.wait(10000).then(() => {
+          cy.window()
+            .its('store')
+            .then((store) => {
+              store.select('logsAction').subscribe((data) => {
+                const allContainSearchedString = Object.keys(data.entities).map(key => data.entities[key]).every(entry => entry.message === textToSearch);
+                cy.wrap(allContainSearchedString).should('eq',true);
+              });
+            });
+        });
+      });
+    });
+  });
 });
