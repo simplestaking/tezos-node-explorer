@@ -1,32 +1,32 @@
 <ng-container *ngIf="stateMachine$ | async as stateMachine">
-  <div class="player-wrapper d-flex flex-row align-center border-rad-4 margin-left-10 margin-right-10">
-    <div class="play-pause border-rad-4 d-flex align-center flex-center margin-right-10 pointer"
-         (click)="togglePlayPause(stateMachine.isPlaying)">
-      <mat-icon [svgIcon]="stateMachine.isPlaying ? 'pause' : 'play'"
-                class="icon-14"></mat-icon>
-    </div>
-    <mat-slider class="proposals-slider flex-grow"
-                [min]="0"
-                [max]="stateMachine.proposals.length - 1"
-                [step]="1"
-                (input)="selectProposal(stateMachine.proposals[$event.value])"
-                [value]="stateMachine.activeProposalPosition"></mat-slider>
-    <button class="play-pause arrows border-rad-4 d-flex align-center flex-center margin-left-10 pointer"
-            [disabled]="stateMachine.activeProposalPosition === 0"
-            (click)="selectPrevProposal(stateMachine.proposals, stateMachine.activeProposal)">
-      <mat-icon [class.icon-white-4]="stateMachine.activeProposalPosition === 0"
-                svgIcon="less-than"></mat-icon>
-    </button>
-    <button class="play-pause arrows border-rad-4 d-flex align-center flex-center pointer"
-            [disabled]="stateMachine.activeProposalPosition === stateMachine.proposals.length - 1"
-            (click)="selectNextProposal(stateMachine.proposals, stateMachine.activeProposal)">
-      <mat-icon [class.icon-white-4]="stateMachine.activeProposalPosition === stateMachine.proposals.length - 1"
-                svgIcon="greater-than"></mat-icon>
-    </button>
-  </div>
-  <div class="table-wrapper" fxLayout.gt-sm="row" fxLayout.lt-md="column">
+  <!--  <div class="player-wrapper d-flex flex-row align-center border-rad-4 margin-left-10 margin-right-10">-->
+  <!--    <div class="play-pause border-rad-4 d-flex align-center flex-center margin-right-10 pointer"-->
+  <!--         (click)="togglePlayPause(stateMachine.isPlaying)">-->
+  <!--      <mat-icon [svgIcon]="stateMachine.isPlaying ? 'pause' : 'play'"-->
+  <!--                class="icon-14"></mat-icon>-->
+  <!--    </div>-->
+  <!--    <mat-slider class="proposals-slider flex-grow"-->
+  <!--                [min]="0"-->
+  <!--                [max]="stateMachine.proposals.length - 1"-->
+  <!--                [step]="1"-->
+  <!--                (input)="selectProposal(stateMachine.proposals[$event.value])"-->
+  <!--                [value]="stateMachine.activeProposalPosition"></mat-slider>-->
+  <!--    <button class="play-pause arrows border-rad-4 d-flex align-center flex-center margin-left-10 pointer"-->
+  <!--            [disabled]="stateMachine.activeProposalPosition === 0"-->
+  <!--            (click)="selectPrevProposal(stateMachine.proposals, stateMachine.activeProposal)">-->
+  <!--      <mat-icon [class.icon-white-4]="stateMachine.activeProposalPosition === 0"-->
+  <!--                svgIcon="less-than"></mat-icon>-->
+  <!--    </button>-->
+  <!--    <button class="play-pause arrows border-rad-4 d-flex align-center flex-center pointer"-->
+  <!--            [disabled]="stateMachine.activeProposalPosition === stateMachine.proposals.length - 1"-->
+  <!--            (click)="selectNextProposal(stateMachine.proposals, stateMachine.activeProposal)">-->
+  <!--      <mat-icon [class.icon-white-4]="stateMachine.activeProposalPosition === stateMachine.proposals.length - 1"-->
+  <!--                svgIcon="greater-than"></mat-icon>-->
+  <!--    </button>-->
+  <!--  </div>-->
+  <div class="table-wrapper font-12" fxLayout.gt-sm="row" fxLayout.lt-md="column">
     <div fxFlex.gt-sm="60%" fxFlex.lt-md="60%">
-      <div class="row text-white-7 font-12">
+      <div class="row text-white-7">
         <span>ID</span>
         <span>PROPOSAL</span>
       </div>
@@ -39,49 +39,57 @@
           <span class="text-white">{{ proposal.type }}</span>
         </div>
       </cdk-virtual-scroll-viewport>
-<!--      <div #tableContainer-->
-<!--           class="state-table overflow-auto">-->
-<!--        <div *ngFor="let proposal of stateMachine.proposals"-->
-<!--             (click)="selectProposal(proposal)"-->
-<!--             [class.active]="stateMachine.activeProposal === proposal"-->
-<!--             class="action row">-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div #tableContainer-->
+      <!--           class="state-table overflow-auto">-->
+      <!--        <div *ngFor="let proposal of stateMachine.proposals"-->
+      <!--             (click)="selectProposal(proposal)"-->
+      <!--             [class.active]="stateMachine.activeProposal === proposal"-->
+      <!--             class="action row">-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
     <div fxFlex.gt-sm="40%"
          fxFlex.lt-md="40%"
          class="payload-view font-12 border-left d-flex flex-column">
-      <div class="detail text-white-7 padding-left-10"
-           fxFlex.md="32px">DETAIL
+      <div class="tabs padding-vertical-10">
+        <span *ngFor="let tab of tabs"
+              class="tab text-white-6 margin-left-10 pointer" [class.active]="tab === activeTab"
+              (click)="activeTab = tab">
+          {{ tab }}
+        </span>
       </div>
-      <div class="d-flex flex-column"
-           fxFlex="calc(100% - 32px)">
-        <div class="padding-10 padding-top-remove"
-             fxFlex.gt-sm="45%"
-             fxHide.lt-md>
-          <div class="border w-100 h-100 padding-top-10 padding-left-10 d-flex flex-column">
-            <span class="text-white-4">HANDSHAKING</span>
-            <div class="diagram-list margin-top-10 overflow-y-auto overflow-x-hidden">
-              <div class="block-step text-white-4 overflow-visible"
-                   [class.error]="block.type === 'error' && i === 0"
-                   *ngFor="let block of stateMachine.diagramBlocks.slice(0, stateMachine.activeProposalPosition + 1).reverse(); let i=index">
-                <span class="truncate">{{ block.title }}</span>
-              </div>
-            </div>
+      <div class="padding-left-10 padding-top-10 overflow-auto"
+           fxFlex="calc(100% - 34px)">
+        <!--        <div class="padding-10 padding-top-remove"-->
+        <!--             fxFlex.gt-sm="45%"-->
+        <!--             fxHide.lt-md>-->
+        <!--          <div class="border w-100 h-100 padding-top-10 padding-left-10 d-flex flex-column">-->
+        <!--            <span class="text-white-4">HANDSHAKING</span>-->
+        <!--            <div class="diagram-list margin-top-10 overflow-y-auto overflow-x-hidden">-->
+        <!--              <div class="block-step text-white-4 overflow-visible"-->
+        <!--                   [class.error]="block.type === 'error' && i === 0"-->
+        <!--                   *ngFor="let block of stateMachine.diagramBlocks.slice(0, stateMachine.activeProposalPosition + 1).reverse(); let i=index">-->
+        <!--                <span class="truncate">{{ block.title }}</span>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <ng-container [ngSwitch]="activeTab">
+          <div *ngSwitchCase="'STATE'">
+            <pre>{{ stateMachine.state | json }}</pre>
           </div>
-        </div>
-        <div class="padding-10 padding-top-remove"
-             fxFlex.gt-sm="55%"
-             fxFlex.lt-md="100%">
-          <div class="border w-100 h-100 padding-top-10 padding-left-10 d-flex flex-column">
-            <span class="text-white">JSON</span>
-            <div class="overflow-auto">[
-              <ngx-json-viewer class="margin-top-10 d-block"
-                               [json]="stateMachine.activeProposal?.content || {}"
-                               [expanded]="true"></ngx-json-viewer>
-            </div>
+          <div *ngSwitchCase="'ACTION'">
+            <pre>{{ stateMachine.activeProposal | json }}</pre>
           </div>
-        </div>
+          <div *ngSwitchCase="'DIFF'">
+            <ngx-object-diff [obj]="diffValueChanges"></ngx-object-diff>
+          </div>
+        </ng-container>
+        <!--        <div class="h-100">-->
+        <!--          <ngx-json-viewer class="margin-top-10 d-block"-->
+        <!--                           [json]="stateMachine.activeProposal?.content || {}"-->
+        <!--                           [expanded]="true"></ngx-json-viewer>-->
+        <!--        </div>-->
       </div>
     </div>
   </div>

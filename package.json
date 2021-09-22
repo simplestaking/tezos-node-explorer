@@ -53,6 +53,7 @@
     "monaco-editor": "^0.27.0",
     "ngx-json-viewer": "^2.4.0",
     "ngx-monaco-editor": "^12.0.0",
+    "ngx-object-diff": "^0.0.3",
     "process": "^0.11.10",
     "rxjs": "^7.3.0",
     "stream": "0.0.2",
