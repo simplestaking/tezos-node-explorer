@@ -87,3 +87,4 @@ export function reducer(state: StateMachine = initialState, action: StateMachine
 
 export const selectStateMachine = (state: State) => state.stateMachine;
 export const selectStateMachineDiagram = (state: State) => state.stateMachine.diagramBlocks;
+export const selectStateMachineActiveAction = (state: State) => state.stateMachine.activeProposal;

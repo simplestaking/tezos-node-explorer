@@ -10,14 +10,29 @@ ngx-object-diff {
 
   .diff-level {
     margin-left: 20px;
+    white-space: normal;
+    vertical-align: top;
+
+    > del .diff-level,
+    > ins .diff-level {
+      white-space: pre !important;
+    }
+
+    del.diff:not(.diff-key) {
+      text-decoration: line-through;
+      border-radius: 2px;
+      background: rgba(63, 63, 67, 1) !important;
+      color: rgba(255, 255, 255, 0.4) !important;
+      padding: 0 3px;
+    }
   }
 
   del {
-    text-decoration: none;
     display: block;
     background: none !important;
     color: inherit !important;
     margin-top: 2px;
+    vertical-align: top;
 
     .old-value {
       display: inline-block;
@@ -36,24 +51,29 @@ ngx-object-diff {
     border-radius: 2px;
     margin-top: 0 !important;
     padding: 0 3px;
+    position: relative;
+    vertical-align: top;
 
     &::after {
-      content: '=>';
+      background-color: #2A2A2E;
       position: absolute;
-      left: -19px;
+      content: '=>';
+      left: -22.5px;
+      top: 0;
     }
   }
 
   ins.diff-key,
   del.diff-key {
     border: none !important;
+
+    > * {
+      vertical-align: top;
+    }
   }
 
   ins.diff,
   del.diff {
-    display: inline-flex !important;
-    align-items: start;
-
     span {
       color: inherit !important;
     }

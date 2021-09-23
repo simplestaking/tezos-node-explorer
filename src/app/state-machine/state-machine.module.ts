@@ -6,13 +6,15 @@ import { TezedgeSharedModule } from '@shared/tezedge-shared.module';
 import { StateMachineDiagramComponent } from './state-machine-diagram/state-machine-diagram.component';
 import { StateMachineTableComponent } from './state-machine-table/state-machine-table.component';
 import { NgxObjectDiffModule } from 'ngx-object-diff';
+import { StateMachineActionDetailsComponent } from './state-machine-action-details/state-machine-action-details.component';
 
 
 @NgModule({
   declarations: [
     StateMachineComponent,
     StateMachineDiagramComponent,
-    StateMachineTableComponent
+    StateMachineTableComponent,
+    StateMachineActionDetailsComponent
   ],
   imports: [
     CommonModule,

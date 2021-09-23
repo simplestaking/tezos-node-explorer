@@ -24,11 +24,11 @@
   <!--                svgIcon="greater-than"></mat-icon>-->
   <!--    </button>-->
   <!--  </div>-->
-  <div class="table-wrapper font-12" fxLayout.gt-sm="row" fxLayout.lt-md="column">
-    <div fxFlex.gt-sm="60%" fxFlex.lt-md="60%">
+  <div class="table-wrapper font-12 h-100" fxLayout.gt-sm="row" fxLayout.lt-md="column">
+    <div fxFlex.gt-sm="40%" fxFlex.lt-md="40%">
       <div class="row text-white-7">
         <span>ID</span>
-        <span>PROPOSAL</span>
+        <span>ACTION</span>
       </div>
       <cdk-virtual-scroll-viewport itemSize="32" class="state-table">
         <div *cdkVirtualFor="let proposal of stateMachine.proposals"
@@ -48,49 +48,8 @@
       <!--        </div>-->
       <!--      </div>-->
     </div>
-    <div fxFlex.gt-sm="40%"
-         fxFlex.lt-md="40%"
-         class="payload-view font-12 border-left d-flex flex-column">
-      <div class="tabs padding-vertical-10">
-        <span *ngFor="let tab of tabs"
-              class="tab text-white-6 margin-left-10 pointer" [class.active]="tab === activeTab"
-              (click)="activeTab = tab">
-          {{ tab }}
-        </span>
-      </div>
-      <div class="padding-left-10 padding-top-10 overflow-auto"
-           fxFlex="calc(100% - 34px)">
-        <!--        <div class="padding-10 padding-top-remove"-->
-        <!--             fxFlex.gt-sm="45%"-->
-        <!--             fxHide.lt-md>-->
-        <!--          <div class="border w-100 h-100 padding-top-10 padding-left-10 d-flex flex-column">-->
-        <!--            <span class="text-white-4">HANDSHAKING</span>-->
-        <!--            <div class="diagram-list margin-top-10 overflow-y-auto overflow-x-hidden">-->
-        <!--              <div class="block-step text-white-4 overflow-visible"-->
-        <!--                   [class.error]="block.type === 'error' && i === 0"-->
-        <!--                   *ngFor="let block of stateMachine.diagramBlocks.slice(0, stateMachine.activeProposalPosition + 1).reverse(); let i=index">-->
-        <!--                <span class="truncate">{{ block.title }}</span>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--        </div>-->
-        <ng-container [ngSwitch]="activeTab">
-          <div *ngSwitchCase="'STATE'">
-            <pre>{{ stateMachine.state | json }}</pre>
-          </div>
-          <div *ngSwitchCase="'ACTION'">
-            <pre>{{ stateMachine.activeProposal | json }}</pre>
-          </div>
-          <div *ngSwitchCase="'DIFF'">
-            <ngx-object-diff [obj]="diffValueChanges"></ngx-object-diff>
-          </div>
-        </ng-container>
-        <!--        <div class="h-100">-->
-        <!--          <ngx-json-viewer class="margin-top-10 d-block"-->
-        <!--                           [json]="stateMachine.activeProposal?.content || {}"-->
-        <!--                           [expanded]="true"></ngx-json-viewer>-->
-        <!--        </div>-->
-      </div>
+    <div fxFlex.gt-sm="60%" fxFlex.lt-md="60%">
+      <app-state-machine-action-details></app-state-machine-action-details>
     </div>
   </div>
 </ng-container>

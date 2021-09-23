@@ -1,0 +1,40 @@
+<div class="payload-view font-12 border-left d-flex flex-column h-100"
+     *ngIf="stateMachine$ | async as stateMachine">
+  <div class="tabs padding-vertical-10">
+        <span *ngFor="let tab of tabs"
+              class="tab text-white-6 margin-left-10 pointer" [class.active]="tab === activeTab"
+              (click)="activeTab = tab">
+          {{ tab }}
+        </span>
+  </div>
+  <div class="padding-left-10 padding-top-10 overflow-auto"
+       fxFlex="calc(100% - 34px)">
+    <!--        <div class="padding-10 padding-top-remove"-->
+    <!--             fxFlex.gt-sm="45%"-->
+    <!--             fxHide.lt-md>-->
+    <!--          <div class="border w-100 h-100 padding-top-10 padding-left-10 d-flex flex-column">-->
+    <!--            <span class="text-white-4">HANDSHAKING</span>-->
+    <!--            <div class="diagram-list margin-top-10 overflow-y-auto overflow-x-hidden">-->
+    <!--              <div class="block-step text-white-4 overflow-visible"-->
+    <!--                   [class.error]="block.type === 'error' && i === 0"-->
+    <!--                   *ngFor="let block of stateMachine.diagramBlocks.slice(0, stateMachine.activeProposalPosition + 1).reverse(); let i=index">-->
+    <!--                <span class="truncate">{{ block.title }}</span>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <ng-container [ngSwitch]="activeTab">
+      <div *ngSwitchCase="'CONTENT'">
+        <pre>{{ stateMachine.activeProposal | json }}</pre>
+      </div>
+      <div *ngSwitchCase="'DIFF'">
+        <ngx-object-diff [obj]="diffValueChanges"></ngx-object-diff>
+      </div>
+    </ng-container>
+    <!--        <div class="h-100">-->
+    <!--          <ngx-json-viewer class="margin-top-10 d-block"-->
+    <!--                           [json]="stateMachine.activeProposal?.content || {}"-->
+    <!--                           [expanded]="true"></ngx-json-viewer>-->
+    <!--        </div>-->
+  </div>
+</div>

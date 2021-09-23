@@ -1,0 +1,52 @@
+
+.payload-view {
+  color: white;
+
+  .tabs .tab {
+    &.active, &:hover {
+      color: white !important;
+    }
+  }
+
+  //.diagram-list {
+  //  .block-step {
+  //    position: relative;
+  //    height: 32px;
+  //    line-height: 32px;
+  //    padding-left: 18px;
+  //
+  //    &:first-child {
+  //      color: white !important;
+  //
+  //      &::after {
+  //        background-color: #0A84FF;
+  //      }
+  //    }
+  //
+  //    &.error::after {
+  //      background-color: rgba(235, 83, 104, 1);
+  //    }
+  //
+  //    &::after {
+  //      position: absolute;
+  //      content: '';
+  //      border-radius: 8px;
+  //      width: 8px;
+  //      height: 8px;
+  //      left: 0;
+  //      top: calc(50% - 4px);
+  //      background-color: #555558;
+  //    }
+  //
+  //    &:not(:last-child)::before {
+  //      position: absolute;
+  //      content: '';
+  //      width: 1px;
+  //      height: 28px;
+  //      left: 4px;
+  //      top: 20px;
+  //      background-color: #555558;
+  //    }
+  //  }
+  //}
+}
