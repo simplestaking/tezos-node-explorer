@@ -25,30 +25,70 @@
   <!--    </button>-->
   <!--  </div>-->
   <div class="table-wrapper font-12 h-100" fxLayout.gt-sm="row" fxLayout.lt-md="column">
-    <div fxFlex.gt-sm="40%" fxFlex.lt-md="40%">
+    <div fxFlex.gt-sm="50%" fxFlex.lt-md="50%"
+         class="d-flex flex-column">
       <div class="row text-white-7">
         <span>ID</span>
         <span>ACTION</span>
       </div>
-      <cdk-virtual-scroll-viewport itemSize="32" class="state-table">
-        <div *cdkVirtualFor="let proposal of stateMachine.proposals"
-             (click)="selectProposal(proposal)"
-             [class.active]="stateMachine.activeProposal === proposal"
+      <cdk-virtual-scroll-viewport fxFlex="1 1 auto" itemSize="32" class="state-table">
+        <div *cdkVirtualFor="let proposal of stateMachine.actions"
+             (click)="selectAction(proposal)"
+             [class.active]="stateMachine.activeAction === proposal"
              class="action row">
           <span class="text-white-7">{{ proposal.id }}</span>
           <span class="text-white">{{ proposal.type }}</span>
         </div>
       </cdk-virtual-scroll-viewport>
-      <!--      <div #tableContainer-->
-      <!--           class="state-table overflow-auto">-->
-      <!--        <div *ngFor="let proposal of stateMachine.proposals"-->
-      <!--             (click)="selectProposal(proposal)"-->
-      <!--             [class.active]="stateMachine.activeProposal === proposal"-->
-      <!--             class="action row">-->
-      <!--        </div>-->
-      <!--      </div>-->
+      <div class="d-flex table-virtual-scroll-footer align-center"
+           fxFlex="40px">
+        <button class="square-button d-flex flex-center align-center"
+                mat-icon-button
+                matTooltip="Scroll to bottom">
+          <mat-icon svgIcon="arrow-bottom"
+                    class="icon-12 d-flex"></mat-icon>
+        </button>
+        <button class="rectangle-button start-stream d-flex flex-center align-center text-white border-remove"
+                mat-icon-button
+                matTooltip="Start Streaming">
+          <mat-icon svgIcon="play-circle"
+                    class="icon-14 margin-right-5"></mat-icon>
+          <span>LIVE</span>
+        </button>
+        <button class="rectangle-button stop-stream d-flex flex-center align-center"
+                mat-icon-button
+                matTooltip="Stop Streaming">
+          <mat-icon svgIcon="pause-circle"
+                    class="icon-14 margin-right-5"></mat-icon>
+          <span>PAUSED</span>
+        </button>
+        <button class="square-button d-flex align-center"
+                id="firstPage"
+                matTooltip="First Page">
+          <mat-icon svgIcon="arrow-left-stop"
+                    class="icon-16"></mat-icon>
+        </button>
+        <button class="square-button d-flex align-center flex-center"
+                id="previousPage"
+                matTooltip="Previous Page">
+          <mat-icon svgIcon="less-than"
+                    class="icon-8 d-flex"></mat-icon>
+        </button>
+        <button class="square-button d-flex align-center flex-center"
+                id="nextPage"
+                matTooltip="Next Page">
+          <mat-icon svgIcon="greater-than"
+                    class="icon-8 d-flex"></mat-icon>
+        </button>
+        <button class="square-button d-flex align-center"
+                id="lastPage"
+                matTooltip="Last Page">
+          <mat-icon svgIcon="arrow-right-stop"
+                    class="icon-16"></mat-icon>
+        </button>
+      </div>
     </div>
-    <div fxFlex.gt-sm="60%" fxFlex.lt-md="60%">
+    <div fxFlex.gt-sm="50%" fxFlex.lt-md="50%">
       <app-state-machine-action-details></app-state-machine-action-details>
     </div>
   </div>

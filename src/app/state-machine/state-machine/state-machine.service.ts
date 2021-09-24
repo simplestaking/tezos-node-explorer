@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { StateMachineDiagramBlock } from '@shared/types/state-machine/state-machine-diagram-block.type';
-import { StateMachineProposal } from '@shared/types/state-machine/state-machine-proposal.type';
+import { StateMachineAction } from '@shared/types/state-machine/state-machine-action.type';
 
 // @ts-ignore
 import * as serverData from './state-machine.json';
 import { delay } from 'rxjs/operators';
 import { tap } from 'rxjs';
+import { StateMachineFilters } from '@shared/types/state-machine/state-machine-filters.type';
 
 @Injectable({
   providedIn: 'root'
@@ -19,15 +20,16 @@ export class StateMachineService {
   constructor(private http: HttpClient) { }
 
   getStateMachineState(): Observable<any> {
-    return this.http.get<any>('http://192.168.100.3:18732/state');
+    return this.http.get<any>('http://192.168.1.6:18732/state');
   }
 
   getStateMachineDiagram(): Observable<StateMachineDiagramBlock[]> {
     return of(diagramStructure).pipe(delay(50));
   }
 
-  getStateMachineProposals(): Observable<StateMachineProposal[]> {
-    return this.http.get<StateMachineProposal[]>('http://192.168.100.3:18732/actions')
+  getStateMachineActions(filter: StateMachineFilters): Observable<StateMachineAction[]> {
+    const url = 'http://192.168.1.6:18732/actions' + '?limit=' + filter.limit;
+    return this.http.get<StateMachineAction[]>(url)
       .pipe(
         tap(response => {
           response.forEach(action => {
@@ -35,9 +37,9 @@ export class StateMachineService {
             // action.state.config.port =  Math.floor(Math.random() * 10000);
             // action.state.last_action_id = action.id;
             // action.state.config.pow_target = Math.floor(Math.random() * 10000);
-            action.state.config.identity.peer_id = {
-              test: [1000]
-            };
+            // action.state.config.identity.peer_id = {
+            //   test: [1000]
+            // };
           });
         })
       );

@@ -1,4 +1,4 @@
-export interface StateMachineProposal {
+export interface StateMachineAction {
   id: number;
   type: string;
   content: any;

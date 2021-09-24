@@ -6,76 +6,83 @@ ngx-object-diff {
     color: white !important;
     line-height: 1.6 !important;
     padding: 0 !important;
-  }
 
-  .diff-level {
-    margin-left: 20px;
-    white-space: normal;
-    vertical-align: top;
+    .diff-level {
+      margin-left: 20px !important;
+      margin-bottom: 2px;
 
-    > del .diff-level,
-    > ins .diff-level {
-      white-space: pre !important;
+      &:first-child {
+        margin-left: 0 !important;
+      }
+
+      .group-del {
+        display: inline-block;
+      }
+
+      del.diff:not(.diff-key) {
+        text-decoration: line-through;
+        border-radius: 2px;
+        background: rgba(63, 63, 67, 1) !important;
+        color: rgba(255, 255, 255, 0.4) !important;
+        padding: 0 3px;
+      }
     }
 
-    del.diff:not(.diff-key) {
-      text-decoration: line-through;
-      border-radius: 2px;
-      background: rgba(63, 63, 67, 1) !important;
-      color: rgba(255, 255, 255, 0.4) !important;
-      padding: 0 3px;
-    }
-  }
-
-  del {
-    display: block;
-    background: none !important;
-    color: inherit !important;
-    margin-top: 2px;
-    vertical-align: top;
-
-    .old-value {
-      display: inline-block;
-      text-decoration: line-through;
-      border-radius: 2px;
-      background: rgba(63, 63, 67, 1) !important;
-      color: rgba(255, 255, 255, 0.4) !important;
-      padding: 0 3px;
-    }
-  }
-
-  ins {
-    left: 25px;
-    color: white !important;
-    background: rgba(10, 132, 255, 1) !important;
-    border-radius: 2px;
-    margin-top: 0 !important;
-    padding: 0 3px;
-    position: relative;
-    vertical-align: top;
-
-    &::after {
-      background-color: #2A2A2E;
-      position: absolute;
-      content: '=>';
-      left: -22.5px;
-      top: 0;
-    }
-  }
-
-  ins.diff-key,
-  del.diff-key {
-    border: none !important;
-
-    > * {
-      vertical-align: top;
-    }
-  }
-
-  ins.diff,
-  del.diff {
-    span {
+    del {
+      display: block;
+      background: none !important;
       color: inherit !important;
+      margin-top: 2px;
+      vertical-align: top;
+
+      .old-value {
+        display: inline-block;
+        text-decoration: line-through;
+        border-radius: 2px;
+        background: rgba(63, 63, 67, 1) !important;
+        color: rgba(255, 255, 255, 0.4) !important;
+        padding: 0 3px;
+      }
+    }
+
+    ins {
+      left: 25px;
+      color: white !important;
+      background: rgba(10, 132, 255, 1) !important;
+      border-radius: 2px;
+      margin-top: 0 !important;
+      padding: 0 3px;
+      position: relative;
+      vertical-align: top;
+
+      &::after {
+        background-color: #2A2A2E;
+        position: absolute;
+        content: '=>';
+        left: -19px;
+        top: 0;
+      }
+    }
+
+    div.diff-level + ins::after {
+      content: '+';
+      left: -13px;
+    }
+
+    ins.diff-key,
+    del.diff-key {
+      border: none !important;
+
+      > * {
+        vertical-align: top;
+      }
+    }
+
+    ins.diff,
+    del.diff {
+      span {
+        color: inherit !important;
+      }
     }
   }
 }

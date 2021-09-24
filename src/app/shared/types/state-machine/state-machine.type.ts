@@ -1,13 +1,16 @@
 import { StateMachineDiagramBlock } from './state-machine-diagram-block.type';
-import { StateMachineProposal } from './state-machine-proposal.type';
-import { StateMachineProposalTable } from './state-machine-proposal-table.type';
+import { StateMachineAction } from './state-machine-action.type';
+import { StateMachineProposalTable } from './state-machine-action-table.type';
+import { StateMachineFilters } from '@shared/types/state-machine/state-machine-filters.type';
 
 export interface StateMachine {
   state: any;
   diagramBlocks: StateMachineDiagramBlock[];
-  // proposalTable: StateMachineProposalTable;
-  proposals: StateMachineProposal[];
-  activeProposal: StateMachineProposal;
-  activeProposalPosition: number;
+  // actionTable: StateMachineProposalTable;
+  actions: StateMachineAction[];
+  activeAction: StateMachineAction;
+  activeActionPosition: number;
   isPlaying: boolean;
+  stream: boolean;
+  filters: StateMachineFilters;
 }

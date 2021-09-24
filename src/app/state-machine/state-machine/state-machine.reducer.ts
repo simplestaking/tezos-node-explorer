@@ -5,10 +5,15 @@ import { StateMachineActions, StateMachineActionTypes } from './state-machine.ac
 const initialState: StateMachine = {
   state: null,
   diagramBlocks: [],
-  proposals: [],
-  activeProposal: null,
-  activeProposalPosition: 0,
+  actions: [],
+  activeAction: null,
+  activeActionPosition: 0,
   isPlaying: false,
+  stream: true,
+  filters: {
+    limit: 30,
+    cursor: 0
+  }
 };
 
 export function reducer(state: StateMachine = initialState, action: StateMachineActions): StateMachine {
@@ -28,18 +33,18 @@ export function reducer(state: StateMachine = initialState, action: StateMachine
       };
     }
 
-    case StateMachineActionTypes.STATE_MACHINE_PROPOSALS_LOAD_SUCCESS: {
+    case StateMachineActionTypes.STATE_MACHINE_ACTIONS_LOAD_SUCCESS: {
       // const activeBlock = state.diagramBlocks.find(b => b.status === 'active');
       // const activeProposalPosition = activeBlock ? action.payload.findIndex(p => p.stateId === activeBlock.id) : -1;
       return {
         ...state,
-        proposals: [...action.payload],
+        actions: [...action.payload],
         // activeProposal: activeProposalPosition === -1 ? null : action.payload[activeProposalPosition],
         // activeProposalPosition
       };
     }
 
-    case StateMachineActionTypes.STATE_MACHINE_SET_ACTIVE_PROPOSAL: {
+    case StateMachineActionTypes.STATE_MACHINE_SET_ACTIVE_ACTION: {
       // const diagramBlocks = state.diagramBlocks.map(block => ({ ...block }));
       // const nextActiveBlockId = diagramBlocks.findIndex(block => block.id === action.payload.stateId);
 
@@ -54,8 +59,8 @@ export function reducer(state: StateMachine = initialState, action: StateMachine
 
       return {
         ...state,
-        activeProposal: action.payload,
-        activeProposalPosition: state.proposals.findIndex(p => p === action.payload),
+        activeAction: action.payload,
+        activeActionPosition: state.actions.findIndex(p => p === action.payload),
         // diagramBlocks
       };
     }
@@ -87,4 +92,4 @@ export function reducer(state: StateMachine = initialState, action: StateMachine
 
 export const selectStateMachine = (state: State) => state.stateMachine;
 export const selectStateMachineDiagram = (state: State) => state.stateMachine.diagramBlocks;
-export const selectStateMachineActiveAction = (state: State) => state.stateMachine.activeProposal;
+export const selectStateMachineActiveAction = (state: State) => state.stateMachine.activeAction;

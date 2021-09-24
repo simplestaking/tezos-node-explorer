@@ -25,10 +25,10 @@
     <!--        </div>-->
     <ng-container [ngSwitch]="activeTab">
       <div *ngSwitchCase="'CONTENT'">
-        <pre>{{ stateMachine.activeProposal | json }}</pre>
+        <pre>{{ stateMachine.activeAction | json }}</pre>
       </div>
       <div *ngSwitchCase="'DIFF'">
-        <ngx-object-diff [obj]="diffValueChanges"></ngx-object-diff>
+        <ngx-object-diff [obj]="stateDifferences"></ngx-object-diff>
       </div>
     </ng-container>
     <!--        <div class="h-100">-->

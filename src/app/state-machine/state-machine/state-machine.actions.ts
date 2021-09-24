@@ -1,15 +1,15 @@
 import { Action } from '@ngrx/store';
 import { StateMachineDiagramBlock } from '@shared/types/state-machine/state-machine-diagram-block.type';
-import { StateMachineProposal } from '@shared/types/state-machine/state-machine-proposal.type';
+import { StateMachineAction } from '@shared/types/state-machine/state-machine-action.type';
 
 export enum StateMachineActionTypes {
   STATE_MACHINE_STATE_LOAD = 'STATE_MACHINE_STATE_LOAD',
   STATE_MACHINE_STATE_LOAD_SUCCESS = 'STATE_MACHINE_STATE_LOAD_SUCCESS',
   STATE_MACHINE_DIAGRAM_LOAD = 'STATE_MACHINE_DIAGRAM_LOAD',
   STATE_MACHINE_DIAGRAM_LOAD_SUCCESS = 'STATE_MACHINE_DIAGRAM_LOAD_SUCCESS',
-  STATE_MACHINE_PROPOSALS_LOAD = 'STATE_MACHINE_PROPOSALS_LOAD',
-  STATE_MACHINE_PROPOSALS_LOAD_SUCCESS = 'STATE_MACHINE_PROPOSALS_LOAD_SUCCESS',
-  STATE_MACHINE_SET_ACTIVE_PROPOSAL = 'STATE_MACHINE_SET_ACTIVE_PROPOSAL',
+  STATE_MACHINE_ACTIONS_LOAD = 'STATE_MACHINE_ACTIONS_LOAD',
+  STATE_MACHINE_ACTIONS_LOAD_SUCCESS = 'STATE_MACHINE_ACTIONS_LOAD_SUCCESS',
+  STATE_MACHINE_SET_ACTIVE_ACTION = 'STATE_MACHINE_SET_ACTIVE_ACTION',
   STATE_MACHINE_PAUSE_PLAYING = 'STATE_MACHINE_PAUSE_PLAYING',
   STATE_MACHINE_START_PLAYING = 'STATE_MACHINE_START_PLAYING',
   STATE_MACHINE_CLOSE = 'STATE_MACHINE_CLOSE',
@@ -38,21 +38,21 @@ export class StateMachineDiagramLoadSuccess implements Action {
 }
 
 export class StateMachineProposalsLoad implements Action {
-  readonly type = StateMachineActionTypes.STATE_MACHINE_PROPOSALS_LOAD;
+  readonly type = StateMachineActionTypes.STATE_MACHINE_ACTIONS_LOAD;
 
   constructor(public payload: any) { }
 }
 
-export class StateMachineProposalsLoadSuccess implements Action {
-  readonly type = StateMachineActionTypes.STATE_MACHINE_PROPOSALS_LOAD_SUCCESS;
+export class StateMachineActionsLoadSuccess implements Action {
+  readonly type = StateMachineActionTypes.STATE_MACHINE_ACTIONS_LOAD_SUCCESS;
 
-  constructor(public payload: StateMachineProposal[]) { }
+  constructor(public payload: StateMachineAction[]) { }
 }
 
-export class StateMachineSetActiveProposal implements Action {
-  readonly type = StateMachineActionTypes.STATE_MACHINE_SET_ACTIVE_PROPOSAL;
+export class StateMachineSetActiveAction implements Action {
+  readonly type = StateMachineActionTypes.STATE_MACHINE_SET_ACTIVE_ACTION;
 
-  constructor(public payload: StateMachineProposal) { }
+  constructor(public payload: StateMachineAction) { }
 }
 
 export class StateMachineStopPlaying implements Action {
@@ -72,8 +72,8 @@ export type StateMachineActions = StateMachineStateLoad
   | StateMachineDiagramLoad
   | StateMachineDiagramLoadSuccess
   | StateMachineProposalsLoad
-  | StateMachineProposalsLoadSuccess
-  | StateMachineSetActiveProposal
+  | StateMachineActionsLoadSuccess
+  | StateMachineSetActiveAction
   | StateMachineStopPlaying
   | StateMachineStartPlaying
   | StateMachineClose

@@ -29,7 +29,7 @@ export class StateMachineComponent implements OnInit, OnDestroy {
       payload: null
     });
     this.store.dispatch<StateMachineProposalsLoad>({
-      type: StateMachineActionTypes.STATE_MACHINE_PROPOSALS_LOAD,
+      type: StateMachineActionTypes.STATE_MACHINE_ACTIONS_LOAD,
       payload: null
     });
 
